@@ -5,15 +5,24 @@ library("scales")
 library("gdata")
 
 ##########FUNCTION LIST#########
+# Tools for file operations----------------------------------
 # isFolderExist (string filepath) returns string
+#
 # if there is no folder like filepath, create filepath folder.
 # return filepath in success
 #
 # folderAppend (string path, string fd) returns string
+#
 # add fd to path and return newpath "path/fd"
 #
 # fileAppend (string path, string filename) returns string
-# add filename to path and return newpath "path/fd"
+#
+# add filename to path and return newpath "path/filename"
+#
+# saveTablesToCSV (string path, string filename, data.table tbl, string xcol, string ycol) returns NULL
+#
+# make cross-tab between two columns with count, total package amount, and average package amount
+#
 
 isFolderExist <- function(filepath) {
     if (!file.exists(filepath)){
@@ -57,6 +66,32 @@ saveToFile <- function(path, filename, txt) {
     open(fileCon,'w')
     write(txt, fileCon)
     close(fileCon)
+}
+
+analyzeBy <- function(path, bkg, tblTitle, type) {
+    regions <- list("A","C","E","F","H","J","P","S")
+    switch(type,
+           "region"={ # do analysis on bookings to each region (8 regions)
+               analyzeByRegion(path, bkg, tblTitle)
+           },
+           "grade"={ # do analysis on bookings of each grade (8 grades except ZE)
+               analyzeByGrade(path, bkg, tblTitle)
+           },
+           "booking_type"={ # do analysis on bookings of each type (16 types with blank)
+           },
+           "nth"={
+           },
+           "num_pur"={
+           },
+           "acco_no"={
+           },
+           "birth_year"={
+           },
+           "gender"={
+           },
+           "attr_code"={
+           }
+           )
 }
 
 analyzeByRegion <- function(path,bkg,tblTitle) {
@@ -114,11 +149,11 @@ analyzeBooking <- function(path,bkg,tblTitle) {
         return(NULL)
     }
     #codeGradeTab(bkg)
+    analyzeDesc(path,bkg,tblTitle)
+    analyzeGrade(path,bkg)
     analyzeNth(path,bkg)
     analyzeArea(path,bkg)
     analyzeAcco(path,bkg)
-    analyzeGrade(path,bkg)
-    analyzeDesc(path,bkg,tblTitle)
 
     ### How given bookings are distributed among different path.
     pathPath <- folderAppend(path,"path")
@@ -140,6 +175,34 @@ analyzeBooking <- function(path,bkg,tblTitle) {
     drawHistogram(gr,pathPath,"type#Histogram.png")
 }
 
+################################## analyze focus on each attr
+# analyzeDesc: analyze descriptive statistics of the table
+# -Total number of records
+# -Average amount of bookings in the table
+# -Overall amount of bookings in the table
+analyzeDesc <- function(path, bkg,tblTitle) {
+    tablePath <- folderAppend(path,"table")
+    fname <- "descTable.txt"
+    write_str <- tblTitle
+    #Print number of records in the table
+    write_str <- paste(write_str,"Number of records",sep="\n")
+    write_str <- paste(write_str,toString(nrow(bkg)),sep="\n")
+
+    #Print the average amount bookings in the table
+    write_str <- paste(write_str,"Average amount of bookings",sep="\n")
+    write_str <- paste(write_str,toString(mean(as.numeric(bkg$package_amt))),sep="\n")
+
+    #Print the overall amount bookings in the table
+    write_str <- paste(write_str,"Overall amount of bookings",sep="\n")
+    write_str <- paste(write_str,toString(sum(as.numeric(bkg$package_amt))),sep="\n")
+
+    #Print above statistics in the file
+    saveToFile(tablePath,"descTable.txt",
+               write_str)
+}
+
+# analyzeGrade: analyze tables for each grade
+# -according to grade only by frequency table
 analyzeGrade <- function(path,bkg) {
     tablePath <- folderAppend(path,"table")
     saveTablesToCSV(tablePath,"gradeTable",bkg,"grade")
@@ -148,7 +211,9 @@ analyzeGrade <- function(path,bkg) {
     saveTablesToCSV(tablePath,"gradeAccoTable",bkg,"grade","accos")
 }
 
-analyzeNth <- function(path,bkg) {
+# analyzeNth: analyze tables for each nth?
+# -according to nth by frequency table and correlation coefficient
+analyeNth <- function(path,bkg) {
     nthPath <- folderAppend(path,"nth")
 
     g <- ggplot(bkg,aes(x=factor(nth)))
@@ -187,27 +252,9 @@ analyzeNth <- function(path,bkg) {
     gc()
 }
 
-analyzeDesc <- function(path, bkg,tblTitle) {
-    tablePath <- folderAppend(path,"table")
-    fname <- "descTable.txt"
-    write_str <- tblTitle
-    #Print number of records in the table
-    write_str <- paste(write_str,"Number of records",sep="\n")
-    write_str <- paste(write_str,toString(nrow(bkg)),sep="\n")
-
-    #Print the average amount bookings in the table
-    write_str <- paste(write_str,"Average amount of bookings",sep="\n")
-    write_str <- paste(write_str,toString(mean(as.numeric(bkg$package_amt))),sep="\n")
-
-    #Print the overall amount bookings in the table
-    write_str <- paste(write_str,"Overall amount of bookings",sep="\n")
-    write_str <- paste(write_str,toString(sum(as.numeric(bkg$package_amt))),sep="\n")
-
-    #Print above statistics in the file
-    saveToFile(tablePath,"descTable.txt",
-               write_str)
-}
-
+# analyzeArea: analyze tables for each area by frequency table
+# -according to area only for foreign travel
+# -according to whether domestic or not
 analyzeArea <- function(path,bkg) {
     ### How given bookings are distributed around the world.
     areaPath <- folderAppend(path,"area")
@@ -235,6 +282,8 @@ analyzeArea <- function(path,bkg) {
     saveTablesToCSV(tablePath,"regionTable",bkg,"regions")
 }
 
+# analyzeAcco: analyze tables for each accompany number
+# -according to acco_no by frequency table and correlation coefficient
 analyzeAcco <- function(path,bkg) {
     ### How given bookings have different # of accompanies.
     accoPath <- folderAppend(path,"AccoNo")
@@ -252,6 +301,18 @@ analyzeAcco <- function(path,bkg) {
     tablePath <- folderAppend(path,"table")
     saveTablesToCSV(tablePath,"accoTable",bkg,"accos")
     saveTablesToCSV(tablePath,"accoRegionTable",bkg,"accos","regions")
+}
+
+analyzeInteraction <- function(path, bkg) {
+    tablePath <- folderAppend(path,"table")
+    attrlist <- list("grade","regions","birth_year","nth","accos")
+    for (col1 in attrlist) {
+        for (col2 in attrlist) {
+            if (which(attrlist==col1)<which(attrlist==col2)) {
+                saveTablesToCSV(tablePath, paste(col1, toupper(col2), "table",sep =""), booking, col1, col2)
+            }
+        }
+    }
 }
 
 makeTable <- function(tbl,xcol,ycol=NULL,type) {
@@ -387,8 +448,8 @@ booking[,accos:=factor(acco_no)]
 booking[,regions:=substring(area_code,1,1)]
 gc()
 
-folderpath = isFolderExist("analysis-140605")
-tableTitle = "booking_grade_final_140605"
+folderpath = isFolderExist("d:/Google\ Drive/codes&share/right_now/analysis-140613")
+tableTitle = "booking_grade_final_140613"
 
 byAnalyze(folderpath,booking,tableTitle) # whole table
 byAnalyze(folderAppend(folderpath,"packageOnly"),booking[attr_code=="P"],tableTitle)
