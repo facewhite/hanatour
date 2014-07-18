@@ -184,60 +184,21 @@ analyzeOneDimension <- function(path, bkg) {
     table.path <- folderAppend(path,"table")
     onedim.path <- folderAppend(path,"OneDimension")
 
-    # analyzeGrade: analyze tables for each grade
-    # -according to grade only by frequency table
-    saveTablesToCSV(onedim.path,"gradeTable",bkg,"grade")
+    attrlist <- list("grade","regions","birth_year","nth","accos",
+                     "booking_type","num_pur","birth_year","marriage","gender","attr_code", "depart_date", "age",
+                     "travel", "recent_camp_email", "recent_camp_sms")
 
-    # analyzeNth: analyze tables for each nth?
-    # -according to nth by frequency table and correlation coefficient
-    saveTablesToCSV(onedim.path,"nthTable",bkg,"nth")
-
-    # analyzeArea: analyze tables for each area by frequency table
-    # -according to area only for foreign travel by frequency table
-    saveTablesToCSV(onedim.path,"regionTable",bkg,"regions")
-
-    # analyzeAcco: analyze tables for each accompany number
-    # -according to acco_no by frequency table and correlation coefficient
-    saveTablesToCSV(onedim.path,"accoTable",bkg,"accos")
-
-    # analyze tables for each booking type
-    # -according to booking_type by frequency table
-    saveTablesToCSV(onedim.path,"typeTable",bkg,"booking_type")
-
-    # analyze tables for each booking num_pur
-    # -according to num_pur by frequency table and correlation
-    saveTablesToCSV(onedim.path,"num_pur-Table",bkg,"num_pur")
-
-    # analyze tables for each birth_year
-    # -according to birth_year by frequency table and correlation
-    saveTablesToCSV(onedim.path,"birth_year-Table",bkg,"birth_year")
-
-    # analyze tables for each birth_year
-    # -according to birth_year by frequency table and correlation
-    saveTablesToCSV(onedim.path,"marriage-Table",bkg,"marriage")
-
-    # analyze tables for each gender 
-    # -according to gender by frequency table
-    saveTablesToCSV(onedim.path,"gender-Table",bkg,"gender")
-
-    # analyze tables for each attr_code
-    # -according to attr_code by frequency table
-    saveTablesToCSV(onedim.path,"attr_code-Table",bkg,"attr_code")
-
-    # analyze tables for each depart_date
-    # -according to depart_date by frequency table
-    saveTablesToCSV(onedim.path,"depart_date-Table",bkg,"depart_date")
-
-    # analyze tables for each depart_date
-    # -according to depart_date by frequency table
-    saveTablesToCSV(onedim.path,"depart_date-Table",bkg,"depart_date")
+    for (att in attrlist) {
+        saveTablesToCSV(onedim.path,paste(att,"Table",sep="-"),bkg,att)
+    }
 }
 
 analyzeInteraction <- function(path, bkg) {
     table.path <- folderAppend(path,"table")
     inter.path <- folderAppend(table.path,"interaction")
     attrlist <- list("grade","regions","birth_year","nth","accos",
-                     "booking_type","num_pur","birth_year","marriage","gender","attr_code", "depart_date")
+                     "booking_type","num_pur","birth_year","marriage","gender","attr_code", "depart_date", "age",
+                     "travel", "recent_camp_email", "recent_camp_sms")
     for (col1 in attrlist) {
         for (col2 in attrlist) {
             if (which(attrlist==col1)<which(attrlist==col2)) {
@@ -291,7 +252,6 @@ con <- odbcConnect("hanatour",uid='root',pwd='299792458')
 booking <- data.table(sqlFetch(con,"bkg_final")) # only with products with grade information.
 booking <- booking[area_code != "AK"] #remove domestic travels
 booking[,accos:=factor(acco_no)] # add length of the journey
-booking[,accos:=factor(acco_no)]
 booking[,regions:=substring(area_code,1,1)]
 gc()
 
