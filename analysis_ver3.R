@@ -123,23 +123,36 @@ saveToFile <- function(path, filename, txt) {
 
 #################### TOOLS FOR SUBTABLE ####################
 
-getSubTab <- function(tab,xcol, x, ycol = "nth", y = 1) {
+getSubCustTab <- function(tab,xcol, x, ycol = "nth", y = 1) {
     result.tab <- tab[get(xcol) == x][get(ycol) == y]
     return(tab[cust_no %in% unique(result.tab$cust_no)])
 }
 
 #################### ANALYZE FUNCTIONS #####################
 
-analyzeCustomersBy <- function(path, bkg, tblTitle, xcol, ycol = "nth",y = 1) {
-    by.path <- folderAppend(path,"by")
+analyzeBy <- function(path, bkg, tblTitle, xcol) {
+    by.path <- folderAppend(path,"subTab")
     save.path <- folderAppend(by.path,xcol)
     bylist <- unique(booking[,get(xcol)]) # categories in xcol
     for (x in bylist) {
-        subtbl <- getSubTab(bkg,xcol,x,ycol,y)
+        subtbl <- bkg[get(xcol)==x]
         sub.path <- folderAppend(save.path,x)
         analyzeBooking(sub.path,subtbl,paste(tblTitle,xcol,x,sep="-"))
     }
-    remove(subtbl)
+    rm(subtbl)
+    gc()
+}
+
+analyzeCustomersBy <- function(path, bkg, tblTitle, xcol, ycol = "nth",y = 1) {
+    by.path <- folderAppend(path,"byCustomer")
+    save.path <- folderAppend(by.path,xcol)
+    bylist <- unique(booking[,get(xcol)]) # categories in xcol
+    for (x in bylist) {
+        subtbl <- getSubCustTab(bkg,xcol,x,ycol,y)
+        sub.path <- folderAppend(save.path,x)
+        analyzeBooking(sub.path,subtbl,paste(tblTitle,xcol,x,sep="-"))
+    }
+    rm(subtbl)
     gc()
 }
 
@@ -150,9 +163,10 @@ analyzeBooking <- function(path,bkg,tblTitle) {
     #codeGradeTab(bkg)
     # num_pur indicates the total number of booking including domestic travel
     attrlist <- list("grade","regions","birth_year","nth","accos",
-                     "booking_type","total_n","birth_year","gender","attr_code", "depart_date", "age",
+                     "booking_type","total_n","birth_year","gender","attr_code", "age",
                      "travel_length", "recent_camp_email", "recent_camp_sms","email_camp_week",
-                     "sms_camp_week","depart_month","depart_year","booking_year","booking_month")
+                     "sms_camp_week","depart_month","depart_year","depart_ym",
+                     "booking_year","booking_month","booking_ym")
 
     analyzeDesc(path,bkg,tblTitle)
     analyzeOneDimension(path,bkg,attrlist)
@@ -201,7 +215,7 @@ analyzeInteraction <- function(path, bkg, attrlist) {
     for (col1 in attrlist) {
         for (col2 in attrlist) {
             if (which(attrlist==col1)<which(attrlist==col2)) {
-                saveTablesToCSV(inter.path, paste(col1, toupper(col2), "table",sep =""), booking, col1, col2)
+                saveTablesToCSV(inter.path, paste(col1, toupper(col2), "table",sep =""), bkg, col1, col2)
             }
         }
     }
@@ -250,28 +264,31 @@ con <- odbcConnect("hanatour",uid='root',pwd='299792458')
 # Fetch tables and put on the list with their names
 booking <- data.table(sqlFetch(con,"bkg_camp_ver3")) # only with products with grade information.
 booking <- booking[area_code != "AK"] #remove domestic travels
+booking <- booking[travel_length > 0] #remove erratic bookings with travel length <= 0
 booking[,accos:=factor(acco_no)] # add length of the journey
 booking[,regions:=substring(area_code,1,1)]
 booking[,sms_camp_week:=floor(recent_camp_sms/7)]
 booking[,email_camp_week:=floor(recent_camp_email/7)]
 booking[,depart_year:=year(depart_date)]
 booking[,depart_month:=month(depart_date)]
+booking[,depart_ym:=as.Date(paste(depart_year,depart_month,1,sep="-"),format="%Y-%m-%d")]
 booking[,booking_year:=year(booking_date)]
 booking[,booking_month:=month(booking_date)]
+booking[,booking_ym:=as.Date(paste(booking_year,booking_month,1,sep="-"),format="%Y-%m-%d")]
 gc()
 
-folderpath <- isFolderExist("d:/Google\ Drive/codes&share/right now/analysis-140717")
-tableTitle <- "booking_grade_final_140717"
+folderpath <- isFolderExist("d:/Google\ Drive/codes&share/right now/analysis-140720")
+tableTitle <- "booking_grade_final_140720"
 
 analyzeBooking(folderpath,booking,tableTitle)
-analyzeCustomersBy(folderpath,booking,tableTitle,"regions")
-analyzeCustomersBy(folderpath,booking,tableTitle,"booking_type")
-analyzeCustomersBy(folderpath,booking,tableTitle,"grade")
+AttrBy <- list("regions", "booking_type", "grade", "depart_year", "depart_month")
 
-byAnalyze(folderpath,booking,tableTitle) # whole table
-byAnalyze(folderAppend(folderpath,"packageOnly"),booking[attr_code=="P"],tableTitle)
-byAnalyze(folderAppend(folderpath,"numOver2"),booking[num_pur>2],tableTitle)
+# Error in attr_code at D
+# Error in `[.data.table`(tbl, , .N, by = get(xcol)) : 
+#   'by' appears to evaluate to column names but isn't c() or key(). Use by=list(...) if you can. Otherwise, by=eval(get(xcol)) should work. This is for efficiency so data.table can detect which columns are needed.
+# In addition: There were 50 or more warnings (use warnings() to see the first 50)
 
-analyzeSegment(folderpath,booking,tblTitle=tableTitle)
-analyzeSegment(folderAppend(folderpath,"packageOnly"),booking[attr_code=="P"],tblTitle=tableTitle)
-analyzeSegment(folderAppend(folderpath,"numOver2"),booking[num_pur>2],tblTitle=tableTitle)
+for (att in AttrBy) {
+    analyzeCustomersBy (folderpath, booking, tableTitle, att)
+    analyzeBy (folderpath, booking, tableTitle, att)
+}
