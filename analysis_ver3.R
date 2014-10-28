@@ -130,6 +130,21 @@ getSubCustTab <- function(tab,xcol, x, ycol = "nth", y = 1) {
 
 #################### ANALYZE FUNCTIONS #####################
 
+doAnalyze <- function(folderpath, booking, tabletitle) {
+    analyzeBooking(folderpath,booking,tableTitle)
+    AttrBy <- list("regions", "booking_type", "grade", "depart_year", "depart_month") # TO BE EXAMINED: Accompany number/ SUBTABLE: AGE, GENDER, TRAVEL LENGTH
+
+    # Error in attr_code at D
+    # Error in `[.data.table`(tbl, , .N, by = get(xcol)) : 
+    #   'by' appears to evaluate to column names but isn't c() or key(). Use by=list(...) if you can. Otherwise, by=eval(get(xcol)) should work. This is for efficiency so data.table can detect which columns are needed.
+    # In addition: There were 50 or more warnings (use warnings() to see the first 50)
+
+    for (att in AttrBy) {
+        analyzeCustomersBy (folderpath, booking, tableTitle, att)
+        analyzeBy (folderpath, booking, tableTitle, att)
+    }
+}
+
 analyzeBy <- function(path, bkg, tblTitle, xcol) {
     by.path <- folderAppend(path,"subTab")
     save.path <- folderAppend(by.path,xcol)
@@ -275,20 +290,16 @@ booking[,depart_ym:=as.Date(paste(depart_year,depart_month,1,sep="-"),format="%Y
 booking[,booking_year:=year(booking_date)]
 booking[,booking_month:=month(booking_date)]
 booking[,booking_ym:=as.Date(paste(booking_year,booking_month,1,sep="-"),format="%Y-%m-%d")]
+booking[booking_type=='']$booking_type <- None
 gc()
 
-folderpath <- isFolderExist("d:/Google\ Drive/codes&share/right now/analysis-140720")
-tableTitle <- "booking_grade_final_140720"
+folderpath <- isFolderExist("d:/hana\ tour/Analysis_result/right now/analysis-140725")
+tableTitle <- "booking_grade_final_140725"
 
-analyzeBooking(folderpath,booking,tableTitle)
-AttrBy <- list("regions", "booking_type", "grade", "depart_year", "depart_month")
+doAnalyze(folderpath, booking, tableTitle)
+##### for package travel only #####
 
-# Error in attr_code at D
-# Error in `[.data.table`(tbl, , .N, by = get(xcol)) : 
-#   'by' appears to evaluate to column names but isn't c() or key(). Use by=list(...) if you can. Otherwise, by=eval(get(xcol)) should work. This is for efficiency so data.table can detect which columns are needed.
-# In addition: There were 50 or more warnings (use warnings() to see the first 50)
+ptableTitle <- "booking_grade_final_140725_package"
+pbooking <- booking[attr_code == "P"]
 
-for (att in AttrBy) {
-    analyzeCustomersBy (folderpath, booking, tableTitle, att)
-    analyzeBy (folderpath, booking, tableTitle, att)
-}
+doAnalyze(folderpath, pbooking, ptableTitle)

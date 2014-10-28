@@ -9,25 +9,11 @@ varlist = []
 
 db = _mysql.connect('localhost', 'root', '299792458', 'hana_tour_py')
 
-db.query('''select grade, travel_length, start_date, code,
-         numberOfPurchase as productNum from product
-         where code = "AEQ110020614OZS"''')
-
-r = db.store_result()
-
-d = r.fetch_row(how=1)  # fetch as a dictionary
 
 # Get all bookings in the booking table
 db.query("select * from booking")
 bkg = db.store_result()
 bkg_all = bkg.fetch_row(bkg.num_rows(),1)
-
-# Get all campaign data in the campaign table
-db.query('''select cust_no, channel_code, category,
-         contact_date, campaign_id
-         from campaign''')
-find_cust = db.store_result()
-camps = find_cust.fetch_row()
 
 write_file = open('D:/hana tour/data_temp/booking_with_camp.csv','w')
 
