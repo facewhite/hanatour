@@ -13,33 +13,79 @@ table_to_matrix <- function(table) {
     
 }
 
-t1 <- data.table(read.csv("~/Documents/hanatour/hanatour/over10.csv")) # 40943 records
-t1$booking_type <- factor(t1$booking_type)
-t1$package_code <- factor(t1$package_code)
-t1$area_code <- factor(t1$area_code)
-#t1$accos <- factor(t1$accos)
-t1$province <- factor(t1$province)
-t1$gender <- factor(t1$gender)
-t1$booking_path <- factor(t1$booking_path)
-t1$cust_no <- factor(t1$cust_no)
-t1$seq <- factor(t1$seq)
+# MAC
+#t1 <- data.table(read.csv("~/Documents/hanatour/hanatour/over10.csv")) # 40943 records
 
-t2 <- t1[total_n<=maxTravel] # 39994 records
+# Windows
+t1 <- data.table(read.csv("over10.csv")) # 40943 records
 
-inds <- unique(t2$cust_no)
+t2 <- t1[total_n <= maxTravel] # 39994 records
+tt <- t2[cust_no %in% sample(unique(t2$cust_no), 1000)] # sample 1000 customers
 
-region_matrix <- matrix()
-for (i in inds){
-    records <- t2[cust_no == i]
-    records <- records[with(records, order(nth))]
+tt$booking_type <- factor(tt$booking_type)
+tt$package_code <- factor(tt$package_code)
+tt$area_code <- factor(tt$area_code)
+#tt$accos <- factor(tt$accos)
+tt$province <- factor(tt$province)
+tt$gender <- factor(tt$gender)
+tt$booking_path <- factor(tt$booking_path)
+tt$cust_no <- factor(tt$cust_no)
+tt$seq <- factor(tt$seq)
+
+tt$regions <- sapply(tt$regions,code_region)
+
+region_matrix <- matrix(ncol=maxTravel)
+accos_matrix <- matrix(ncol=maxTravel)
+
+# for (i in inds){
+#     records <- tt[cust_no == i]
+#     records <- records[with(records, order(cust_no, nth))]
+# }
+
+tt <- tt[with(tt, order(cust_no, nth))]
+custbuf <- 0
+regionbuf <- vector()
+accos <- vector()
+
+for (rownum in 1:nrow(tt)) {
+    row <- tt[rownum,]
+    cno <- row$cust_no
+    region <- row$regions
+    accos <- row$accos
+
+    if (custbuf != cno) {
+        custbuf = cno
+
+        regionbuf <- c(regionbuf,rep(0,maxTravel-length(regionbuf)))
+        region_matrix <- rbind(region_matrix, regionbuf)
+        regionbuf <- region
+
+        accosbuf <- c(accosbuf, rep(0,maxTravel-length(accosbuf)))
+        accos_matrix <- rbind(accos_matrix, accosbuf)
+        accosbuf <- accos
+    } else {
+        regionbuf <- c(regionbuf, region)
+        accosbuf <- c(accosbuf, accos)
+    }
 
 }
 
-rs <- sapply(t2$regions,code_region)
+regionbuf <- c(regionbuf,rep(0,maxTravel-length(regionbuf)))
+region_matrix <- rbind(region_matrix, regionbuf)
+
+region_matrix <- region_matrix[-1,]
+region_matrix <- region_matrix[-1,]
+
+acccosbuf <- c(acccosbuf,rep(0,maxTravel-length(acccosbuf)))
+acccos_matrix <- rbind(acccos_matrix, acccosbuf)
+
+acccos_matrix <- acccos_matrix[-1,]
+acccos_matrix <- acccos_matrix[-1,]
 
 stan_table <- list (I = length(unique(t2$cust_no)),
-                    J = max(t2$total_n),
-                    regions
+                    J = maxTravel,
+                    regions = region_matrix,
+                    accos = accos_matrix
                     )
 
 model_ver1 <- '
