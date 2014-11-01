@@ -27,15 +27,12 @@ tt$package_code <- factor(tt$package_code)
 tt$area_code <- factor(tt$area_code)
 #tt$accos <- factor(tt$accos)
 tt$province <- factor(tt$province)
-tt$gender <- factor(tt$gender)
+#tt$gender <- factor(tt$gender)
 tt$booking_path <- factor(tt$booking_path)
 tt$cust_no <- factor(tt$cust_no)
 tt$seq <- factor(tt$seq)
 
 tt$regions <- sapply(tt$regions,code_region)
-
-region_matrix <- matrix(ncol=maxTravel)
-accos_matrix <- matrix(ncol=maxTravel)
 
 # for (i in inds){
 #     records <- tt[cust_no == i]
@@ -45,7 +42,8 @@ accos_matrix <- matrix(ncol=maxTravel)
 tt <- tt[with(tt, order(cust_no, nth))]
 custbuf <- 0
 regionbuf <- vector()
-accos <- vector()
+accosbuf <- vector()
+genders <- vector()
 
 for (rownum in 1:nrow(tt)) {
     row <- tt[rownum,]
@@ -55,37 +53,32 @@ for (rownum in 1:nrow(tt)) {
 
     if (custbuf != cno) {
         custbuf = cno
-
-        regionbuf <- c(regionbuf,rep(0,maxTravel-length(regionbuf)))
-        region_matrix <- rbind(region_matrix, regionbuf)
-        regionbuf <- region
-
-        accosbuf <- c(accosbuf, rep(0,maxTravel-length(accosbuf)))
-        accos_matrix <- rbind(accos_matrix, accosbuf)
-        accosbuf <- accos
-    } else {
-        regionbuf <- c(regionbuf, region)
-        accosbuf <- c(accosbuf, accos)
+        regionbuf <- c(regionbuf, rep(0,maxTravel - (length(regionbuf) %% maxTravel)))
+        accosbuf <- c(accosbuf, rep(0,maxTravel - (length(accosbuf) %% maxTravel)))
+        genders <- c(genders, row$gender)
     }
+
+    regionbuf <- c(regionbuf, region)
+    accosbuf <- c(accosbuf, accos)
 
 }
 
-regionbuf <- c(regionbuf,rep(0,maxTravel-length(regionbuf)))
-region_matrix <- rbind(region_matrix, regionbuf)
+regionbuf <- tail(regionbuf, -1 * maxTravel)
+regionbuf <- c(regionbuf, rep(0,maxTravel - (length(regionbuf) %% maxTravel)))
+region_matrix <- matrix(regionbuf, ncol = maxTravel, byrow=TRUE)
 
-region_matrix <- region_matrix[-1,]
-region_matrix <- region_matrix[-1,]
+accosbuf <- tail(accosbuf, -1 * maxTravel)
+accosbuf <- c(accosbuf, rep(0,maxTravel  -(length(accosbuf) %% maxTravel)))
+accos_matrix <- matrix(accosbuf, ncol = maxTravel, byrow=TRUE)
 
-acccosbuf <- c(acccosbuf,rep(0,maxTravel-length(acccosbuf)))
-acccos_matrix <- rbind(acccos_matrix, acccosbuf)
-
-acccos_matrix <- acccos_matrix[-1,]
-acccos_matrix <- acccos_matrix[-1,]
+genders <- c(tail(genders,-1), row$gender)
+genders <- as.integer(genders)
 
 stan_table <- list (I = length(unique(t2$cust_no)),
                     J = maxTravel,
                     regions = region_matrix,
-                    accos = accos_matrix
+                    accos = accos_matrix,
+                    gender = genders
                     )
 
 model_ver1 <- '
