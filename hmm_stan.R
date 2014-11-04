@@ -14,10 +14,10 @@ table_to_matrix <- function(table) {
 }
 
 # MAC
-t1 <- data.table(read.csv("~/Documents/hanatour/hanatour/over10.csv")) # 40943 records
+#t1 <- data.table(read.csv("~/Documents/hanatour/hanatour/over10.csv")) # 40943 records
 
 # Windows
-#t1 <- data.table(read.csv("over10.csv")) # 40943 records
+t1 <- data.table(read.csv("over10.csv")) # 40943 records
 t1Tab <- table(t1$cust_no)
 t2 <- t1[cust_no %in% names(t1Tab[t1Tab>10])]
 
@@ -79,11 +79,11 @@ genders <- as.integer(genders)
 
 stan_table <- list (I = length(unique(t2$cust_no)),
                     J = maxTravel,
+                    S1 = 5,
+                    S2 = 8,
                     regions = region_matrix,
                     accos = accos_matrix,
                     gender = genders
                     )
 
-model_ver1 <- '
-model {
-}'
+result <- stan('stan_model.stan',data=stan_table,iter=200,chains=2,init=0)
