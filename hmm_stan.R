@@ -19,7 +19,8 @@ table_to_matrix <- function(table) {
 # Windows
 t1 <- data.table(read.csv("over10.csv")) # 40943 records
 t1Tab <- table(t1$cust_no)
-t2 <- t1[cust_no %in% names(t1Tab[t1Tab>10])]
+t2 <- t1[cust_no %in% names(t1Tab[t1Tab>10])] # 18603 records
+t2 <- t2[!is.na(gender)] # 18367 records
 
 
 #t2 <- t1[total_n <= maxTravel] # 39994 records
@@ -30,7 +31,7 @@ t2$package_code <- factor(t2$package_code)
 t2$area_code <- factor(t2$area_code)
 #t2$accos <- factor(t2$accos)
 t2$province <- factor(t2$province)
-#t2$gender <- factor(t2$gender)
+t2$gender <- factor(t2$gender)
 t2$booking_path <- factor(t2$booking_path)
 t2$cust_no <- factor(t2$cust_no)
 t2$seq <- factor(t2$seq)
@@ -56,8 +57,8 @@ for (rownum in 1:nrow(t2)) {
 
     if (custbuf != cno) {
         custbuf = cno
-        regionbuf <- c(regionbuf, rep(0,maxTravel - (length(regionbuf) %% maxTravel)))
-        accosbuf <- c(accosbuf, rep(0,maxTravel - (length(accosbuf) %% maxTravel)))
+        regionbuf <- c(regionbuf, rep(9,maxTravel - (length(regionbuf) %% maxTravel)))
+        accosbuf <- c(accosbuf, rep(9,maxTravel - (length(accosbuf) %% maxTravel)))
         genders <- c(genders, row$gender)
     }
 
@@ -67,23 +68,48 @@ for (rownum in 1:nrow(t2)) {
 }
 
 regionbuf <- tail(regionbuf, -1 * maxTravel)
-regionbuf <- c(regionbuf, rep(0,maxTravel - (length(regionbuf) %% maxTravel)))
+regionbuf <- c(regionbuf, rep(9,maxTravel - (length(regionbuf) %% maxTravel)))
 region_matrix <- matrix(regionbuf, ncol = maxTravel, byrow=TRUE)
 
 accosbuf <- tail(accosbuf, -1 * maxTravel)
-accosbuf <- c(accosbuf, rep(0, maxTravel  -(length(accosbuf) %% maxTravel)))
+accosbuf <- c(accosbuf, rep(9, maxTravel  -(length(accosbuf) %% maxTravel)))
 accos_matrix <- matrix(accosbuf, ncol = maxTravel, byrow=TRUE)
 
 genders <- c(tail(genders,-1), row$gender)
 genders <- as.integer(genders)
 
+I = length(unique(t2$cust_no))
+J = maxTravel
+S1 = 5
+S2 = 9
+alpha <- rep(1,S1);
+beta <- rep(0.1,S2);
+
 stan_table <- list (I = length(unique(t2$cust_no)),
                     J = maxTravel,
                     S1 = 5,
-                    S2 = 8,
+                    S2 = 9,
                     regions = region_matrix,
                     accos = accos_matrix,
                     gender = genders
                     )
 
+# 1279, 1232, 1238, 1304, 1224, 1204, 1162, 996, 998, 930 : large
+
+# tables of the number of customer travel occasions
+#  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28 
+#336 364 310 281 264 269 272 328 450 771 465 292 178 117  91  57  36  33  21  17  12   5  10  13   6   1   4   2 
+# 29  30  31  32  39  41  43  44  71 
+#  5   4   1   1   1   1   1   1   1 
+stan_table_simple <- list (
+                    J = maxTravel,
+                    S1 = 5,
+                    S2 = 9,
+                    regions = region_matrix[1279,],
+                    alpha = rep(1,5),
+                    beta = rep(0.1, 9)
+                    )
+
 result <- stan('stan_model.stan',data=stan_table,iter=200,chains=2,init=0)
+#simpler version
+result <- stan('hmm_simple.stan',data=stan_table_simple,iter=200,chains=2,init=0)
