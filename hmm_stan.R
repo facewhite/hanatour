@@ -1,7 +1,7 @@
 library("data.table")
 library("rstan")
 
-maxTravel <- 29
+maxTravel <- 20
 
 
 code_region <- function(regionname) {
@@ -20,6 +20,7 @@ table_to_matrix <- function(table) {
 t1 <- data.table(read.csv("over10.csv")) # 40943 records
 t1Tab <- table(t1$cust_no)
 t2 <- t1[cust_no %in% names(t1Tab[t1Tab>10])] # 18603 records
+t2 <- t2[cust_no %in% names(t1Tab[t1Tab<21])] # 18603 records
 t2 <- t2[!is.na(gender)] # 18367 records
 
 
@@ -33,7 +34,7 @@ t2$area_code <- factor(t2$area_code)
 t2$province <- factor(t2$province)
 t2$gender <- factor(t2$gender)
 t2$booking_path <- factor(t2$booking_path)
-t2$cust_no <- factor(t2$cust_no)
+#t2$cust_no <- factor(t2$cust_no)
 t2$seq <- factor(t2$seq)
 
 t2$regions <- sapply(t2$regions,code_region)
@@ -48,18 +49,28 @@ custbuf <- 0
 regionbuf <- vector()
 accosbuf <- vector()
 genders <- vector()
+cust_list <- list()
+count = 0
 
 for (rownum in 1:nrow(t2)) {
     row <- t2[rownum,]
     cno <- row$cust_no
     region <- row$regions
     accos <- row$accos
-
     if (custbuf != cno) {
-        custbuf = cno
-        regionbuf <- c(regionbuf, rep(9,maxTravel - (length(regionbuf) %% maxTravel)))
-        accosbuf <- c(accosbuf, rep(9,maxTravel - (length(accosbuf) %% maxTravel)))
+        cust_list <- c(cust_list, cno)
+        custbuf <- cno
+
+        if (count < 20) {
+            regionbuf <- c(regionbuf, rep(9,maxTravel - count))
+            accosbuf <- c(accosbuf, rep(0,maxTravel - count))
+        }
         genders <- c(genders, row$gender)
+        count = 1
+    } else {
+        count <- count + 1
+        if (count > maxTravel)
+            next
     }
 
     regionbuf <- c(regionbuf, region)
@@ -67,12 +78,16 @@ for (rownum in 1:nrow(t2)) {
 
 }
 
+tl <- length(regionbuf) %% maxTravel
+if (tl != 0) {
+    regionbuf <- c(regionbuf, rep(9,maxTravel - tl))
+    accosbuf <- c(accosbuf, rep(0,maxTravel - tl))
+}
+
 regionbuf <- tail(regionbuf, -1 * maxTravel)
-regionbuf <- c(regionbuf, rep(9,maxTravel - (length(regionbuf) %% maxTravel)))
 region_matrix <- matrix(regionbuf, ncol = maxTravel, byrow=TRUE)
 
 accosbuf <- tail(accosbuf, -1 * maxTravel)
-accosbuf <- c(accosbuf, rep(9, maxTravel  -(length(accosbuf) %% maxTravel)))
 accos_matrix <- matrix(accosbuf, ncol = maxTravel, byrow=TRUE)
 
 genders <- c(tail(genders,-1), row$gender)
@@ -106,8 +121,9 @@ stan_table_simple <- list (
                     S1 = 5,
                     S2 = 9,
                     regions = region_matrix[1279,],
-                    alpha = rep(1,5),
-                    beta = rep(0.1, 9)
+                    accos = accos_matrix[1279,],
+                    gender = genders[1279],
+                    beta = rep(0.1,9)
                     )
 
 result <- stan('stan_model.stan',data=stan_table,iter=200,chains=2,init=0)
