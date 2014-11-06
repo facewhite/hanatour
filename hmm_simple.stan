@@ -14,13 +14,13 @@ parameters {
   vector[S1] a4;
   vector[S2] b1[S1];
   vector[S2] b2;
-  simplex[S2] phi[S1];    // emit probs
+  //simplex[S2] phi[S1];    // emit probs
 }
 
 transformed parameters {
   simplex[S1] alpha;      // prior state probs
   simplex[S1] theta[S1];  // transit probs
-  //simplex[S2] phi[S1];    // emit probs
+  simplex[S2] phi[S1];    // emit probs
   real gamma[J,S1];
 
 
@@ -29,7 +29,7 @@ transformed parameters {
     // forward algorithm computes log p(u|...)
     vector[S1] alphareg;
     vector[S1] thetareg[S1];
-    //vector[S2] phireg[S1];
+    vector[S2] phireg[S1];
     real acc[S1];
 
     alphareg <- a1 + a2 * gender;
@@ -38,11 +38,13 @@ transformed parameters {
 
     for (s1 in 1:S1) {
       thetareg[s1] <- a3[s1] + a4 * gender;
-      //phireg[s1] <- b1[s1] + b2 * accos[1];
+      phireg[s1] <- b1[s1] + b2 * accos[1];
     }
 
-    for (s1 in 1:S1)
+    for (s1 in 1:S1) {
       theta[s1] <- softmax(thetareg[s1]);
+      phi[s1] <- softmax(phireg[s1]);
+    }
 
 
     for (k in 1:S1)
@@ -50,33 +52,30 @@ transformed parameters {
 
     for (t in 2:J) {
       for (k in 1:S1) {
+        phireg[k] <- b1[k] + b2 * accos[t];
+        phi[k] <- softmax(phireg[k]);
         for (j in 1:S1) {
-          //for (s1 in 1:S1) {
-          //  phireg[s1] <- b1[s1] + b2 * accos[j];
-          //}
           acc[j] <- gamma[t-1,j] + log(theta[j,k]) + log(phi[k,regions[t]]);
         }
         gamma[t,k] <- log_sum_exp(acc);
       }
     }
   }
-  //for (s1 in 1:S1)
-  //  phi[s1] <- softmax(phireg[s1]);
 }
 
 model {
   a1 ~ normal(0,0.01);
   a2 ~ normal(0,0.01);
   a4 ~ normal(0,0.01);
-  //b2 ~ normal(0,0.01);
+  b2 ~ normal(0,0.01);
   for (s1 in 1:S1) {
     a3[s1] ~ normal(0,0.01);
-    //b1[s1] ~ normal(0,0.01);
+    b1[s1] ~ normal(0,0.01);
   }
 
-  for (s1 in 1:S1) {
-    phi[s1] ~ dirichlet(beta);
-  }
+  //for (s1 in 1:S1) {
+  //  phi[s1] ~ dirichlet(beta);
+  //}
 
   increment_log_prob(log_sum_exp(gamma[J]));
 }
