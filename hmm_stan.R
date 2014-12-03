@@ -49,6 +49,8 @@ custbuf <- 0
 regionbuf <- vector()
 accosbuf <- vector()
 genders <- vector()
+agebuf <- vector()
+tnum <- vector()
 cust_list <- list()
 count = 0
 
@@ -57,13 +59,18 @@ for (rownum in 1:nrow(t2)) {
     cno <- row$cust_no
     region <- row$regions
     accos <- row$accos
+    age <- row$age
     if (custbuf != cno) {
         cust_list <- c(cust_list, cno)
         custbuf <- cno
 
-        if (count < 20) {
+        if (count < maxTravel) {
             regionbuf <- c(regionbuf, rep(9,maxTravel - count))
             accosbuf <- c(accosbuf, rep(0,maxTravel - count))
+            agebuf <- c(agebuf, rep(0,maxTravel - count))
+            tnum <- c(tnum,count)
+        } else {
+            tnum <- c(tnum, maxTravel)
         }
         genders <- c(genders, row$gender)
         count = 1
@@ -75,6 +82,7 @@ for (rownum in 1:nrow(t2)) {
 
     regionbuf <- c(regionbuf, region)
     accosbuf <- c(accosbuf, accos)
+    agebuf <- c(agebuf, age)
 
 }
 
@@ -82,7 +90,16 @@ tl <- length(regionbuf) %% maxTravel
 if (tl != 0) {
     regionbuf <- c(regionbuf, rep(9,maxTravel - tl))
     accosbuf <- c(accosbuf, rep(0,maxTravel - tl))
+    agebuf <- c(agebuf, rep(0,maxTravel - tl))
 }
+
+if (count < maxTravel) {
+    tnum <- c(tnum, count)
+} else {
+    tnum <- c(tnum, maxTravel)
+}
+tnum <- tail(tnum,-1)
+
 
 regionbuf <- tail(regionbuf, -1 * maxTravel)
 region_matrix <- matrix(regionbuf, ncol = maxTravel, byrow=TRUE)
@@ -90,23 +107,27 @@ region_matrix <- matrix(regionbuf, ncol = maxTravel, byrow=TRUE)
 accosbuf <- tail(accosbuf, -1 * maxTravel)
 accos_matrix <- matrix(accosbuf, ncol = maxTravel, byrow=TRUE)
 
+agebuf <- tail(agebuf, -1 * maxTravel)
+age_matrix <- matrix(agebuf, ncol = maxTravel, byrow=TRUE)
+
 genders <- c(tail(genders,-1), row$gender)
 genders <- as.integer(genders)
 
 I = length(unique(t2$cust_no))
 J = maxTravel
 S1 = 5
-S2 = 9
+S2 = 8
 alpha <- rep(1,S1);
 beta <- rep(0.1,S2);
 
 stan_table <- list (I = length(unique(t2$cust_no)),
                     J = maxTravel,
-                    S1 = 5,
+                    S1 = 3,
                     S2 = 9,
                     regions = region_matrix,
                     accos = accos_matrix,
-                    gender = genders
+                    age = age_matrix,
+                    tnum = tnum
                     )
 
 # 1279, 1232, 1238, 1304, 1224, 1204, 1162, 996, 998, 930 : large
@@ -116,16 +137,15 @@ stan_table <- list (I = length(unique(t2$cust_no)),
 #336 364 310 281 264 269 272 328 450 771 465 292 178 117  91  57  36  33  21  17  12   5  10  13   6   1   4   2 
 # 29  30  31  32  39  41  43  44  71 
 #  5   4   1   1   1   1   1   1   1 
+
 stan_table_simple <- list (
                     J = maxTravel,
                     S1 = 5,
-                    S2 = 9,
+                    S2 = 8,
                     regions = region_matrix[1279,],
                     accos = accos_matrix[1279,],
                     gender = genders[1279],
                     beta = rep(0.1,9)
                     )
 
-result <- stan('stan_model.stan',data=stan_table,iter=200,chains=2,init=0)
-#simpler version
-result <- stan('hmm_simple.stan',data=stan_table_simple,iter=200,chains=2,init=0)
+result_age <- stan('hmm_simple.stan',data=stan_table,iter=200,chains=2,init=0)

@@ -278,7 +278,7 @@ codeGrade <- function(grade) {
 con <- odbcConnect("hanatour",uid='root',pwd='299792458')
 
 # Fetch tables and put on the list with their names
-booking <- data.table(sqlFetch(con,"bkg_camp_ver4")) # only with products with grade information.
+booking <- data.table(sqlFetch(con,"bkg_camp_ver5")) # only with products with grade information.
 booking <- booking[area_code != "AK"] #remove domestic travels
 booking <- booking[travel_length > 0] #remove erratic bookings with travel length <= 0
 booking <- booking[attr_code == "P"] #remove all bookings other than package

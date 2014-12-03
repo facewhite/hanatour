@@ -1,0 +1,176 @@
+data {
+  int<lower=1> K;  // num categories
+  int<lower=1> V;  // num words
+  int<lower=1> I;  // num inds
+  int<lower=1> T[I]; // num of travel occasions for each individuals
+  int<lower=1> T_unsup;  // num max unsupervised items
+  int<lower=1,upper=V+1> u[I,T_unsup]; // unsup words
+
+  real age[I,T_unsup]; // age covariates
+  real accos[I,T_unsup]; // accos covariates
+
+  real tl[I,T_unsup]; // accos covariates
+  real nth[I,T_unsup]; // accos covariates
+  real pkg_amt[I,T_unsup]; // accos covariates
+
+  // freq area matrix with indicator vector (e.g. 3 = (0,0,1,0,0,0,0,0,0,0,0,0))
+  // 9 means the first destination, 10 means the NA.
+  vector[V] freq[I,T_unsup];
+}
+
+parameters {
+  vector[V] phi_alpha[K];
+  vector[V] phi_beta_accos;
+  vector[V] phi_beta_tl;
+  vector[V] phi_beta_pkg_amt;
+  vector[V] phi_beta_age;
+  vector[K] prior_alpha;
+  vector[K] prior_beta;
+  vector[K] theta_alpha[K];
+  vector[K] theta_beta_age;
+  vector[K] theta_beta_tl;
+  vector[K] theta_beta_nth;
+
+  matrix[V,V] theta_beta_freq[K];
+}
+
+model {
+  for(k in 1:K) {
+    prior_alpha ~ normal(0,0.1);
+  }
+  prior_beta ~ normal(0,0.1);
+
+  for(k in 1:K) {
+    theta_alpha[k] ~ normal(0,0.1);
+    phi_alpha[k] ~ normal(0,0.1);
+    for(v in 1:V)
+      theta_beta_freq[k,v] ~normal(0,0.1);
+  }
+  theta_beta_age ~ normal(0,0.1);
+  theta_beta_tl ~ normal(0,0.1);
+  theta_beta_nth ~ normal(0,0.1);
+  phi_beta_accos ~ normal(0,0.1);
+  phi_beta_tl ~ normal(0,0.1);
+  phi_beta_pkg_amt ~ normal(0,0.1);
+  phi_beta_age ~ normal(0,0.1);
+
+
+  for (i in 1:I){
+    // forward algorithm computes log p(u|...)
+    real acc[K];
+    real gamma[T[i],K];
+
+    vector[K] prior;
+    vector[K] priorreg;
+    vector[K] theta[K];
+    vector[K] thetareg[K];
+    vector[V] phi[K];
+    vector[V] phireg[K];
+
+    priorreg <- prior_alpha + prior_beta * age[i,1];
+    prior <- softmax(priorreg);
+
+    for (k in 1:K) {
+      phireg[k] <- phi_alpha[k] + phi_beta_accos * accos[i,1]
+                    + phi_beta_tl * tl[i,1]
+                    + phi_beta_pkg_amt * pkg_amt[i,1]
+                    + phi_beta_age * age[i,1]
+                    + theta_beta_freq[k] * freq[i,1];
+      phi[k] <- softmax(phireg[k]);
+    }
+
+    for (k in 1:K)
+      gamma[1,k] <- log(prior[k]) + log(phi[k,u[i,1]]);
+
+    for (t in 2:T[i]) {
+      for (k in 1:K) {
+        thetareg[k] <- theta_alpha[k] + theta_beta_age * age[i,t]
+                        + theta_beta_nth * nth[i,t]
+                        + theta_beta_tl * tl[i,t];
+        for (k2 in 1:K) {
+            if (abs(k-k2) > 1) {
+                thetareg[k,k2] <- negative_infinity();
+            }
+        }
+        theta[k] <- softmax(thetareg[k]);
+
+        phireg[k] <- phi_alpha[k] + phi_beta_accos * accos[i,t]
+                    + phi_beta_tl * tl[i,t]
+                    + phi_beta_pkg_amt * pkg_amt[i,t]
+                    + phi_beta_age * age[i,t]
+                    + theta_beta_freq[k] * freq[i,t];
+        phi[k] <- softmax(phireg[k]);
+      }
+      for (k in 1:K) {
+        for (j in 1:K)
+          acc[j] <- gamma[t-1,j] + log(theta[j,k]) + log(phi[k,u[i,t]]);
+        gamma[t,k] <- log_sum_exp(acc);
+      }
+    }
+    increment_log_prob(log_sum_exp(gamma[T[i]]));
+  }
+}
+
+generated quantities {
+  real log_prob;
+  real aic;
+  real bic;
+  for (i in 1:I){
+    // forward algorithm computes log p(u|...)
+    real acc[K];
+    real gamma[T[i],K];
+    int numparam;
+
+    vector[K] prior;
+    vector[K] priorreg;
+    vector[K] theta[K];
+    vector[K] thetareg[K];
+    vector[V] phi[K];
+    vector[V] phireg[K];
+
+    priorreg <- prior_alpha + prior_beta * age[i,1];
+    prior <- softmax(priorreg);
+
+    for (k in 1:K) {
+      phireg[k] <- phi_alpha[k] + phi_beta_accos * accos[i,1]
+                    + phi_beta_tl * tl[i,1]
+                    + phi_beta_pkg_amt * pkg_amt[i,1]
+                    + phi_beta_age * age[i,1]
+                    + theta_beta_freq[k] * freq[i,1];
+      phi[k] <- softmax(phireg[k]);
+    }
+
+    for (k in 1:K)
+      gamma[1,k] <- log(prior[k]) + log(phi[k,u[i,1]]);
+
+    for (t in 2:T[i]) {
+      for (k in 1:K) {
+        thetareg[k] <- theta_alpha[k] + theta_beta_age * age[i,t]
+                        + theta_beta_nth * nth[i,t]
+                        + theta_beta_tl * tl[i,t];
+        for (k2 in 1:K) {
+            if (abs(k-k2) > 1) {
+                thetareg[k,k2] <- negative_infinity();
+            }
+        }
+        theta[k] <- softmax(thetareg[k]);
+
+        phireg[k] <- phi_alpha[k] + phi_beta_accos * accos[i,t]
+                    + phi_beta_tl * tl[i,t]
+                    + phi_beta_pkg_amt * pkg_amt[i,t]
+                    + phi_beta_age * age[i,t]
+                    + theta_beta_freq[k] * freq[i,t];
+        phi[k] <- softmax(phireg[k]);
+      }
+      for (k in 1:K) {
+        for (j in 1:K)
+          acc[j] <- gamma[t-1,j] + log(theta[j,k]) + log(phi[k,u[i,t]]);
+        gamma[t,k] <- log_sum_exp(acc);
+      }
+    }
+    log_prob <- log_prob + log_sum_exp(gamma[T[i]]);
+    numparam <- (V*4 + K*5 + K*K + K*V + K*V*V);
+    aic <- 2 * numparam - 2* log_prob;
+    bic <- -2 * log_prob + numparam * log(I);
+  }
+}

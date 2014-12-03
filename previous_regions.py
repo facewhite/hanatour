@@ -2,7 +2,7 @@ import _mysql
 
 # initial list and dictionaries
 order_dict = {}
-varlist = ['seq', 'next_area']
+varlist = ['seq', 'prev_area']
 
 db = _mysql.connect('localhost', 'root', '299792458', 'hana_tour_py')
 
@@ -30,7 +30,7 @@ for i in xrange(bkg.num_rows()):
 db.query("select seq, cust_no, nth, total_n from bkg_camp_ver3")
 bkg = db.store_result()
 
-write_file = open('D:/hana tour/data_temp/bkg_camp_ver3_next_area.csv','w')
+write_file = open('D:/hana tour/data_temp/prev_area.csv','w')
 
 print 'First writing to a file'
 for i in xrange(bkg.num_rows()):
@@ -43,14 +43,14 @@ for i in xrange(bkg.num_rows()):
     nth = int(b['nth'])
     total_n = int(b['total_n'])
 
-    if nth == total_n:
-        b['next_area'] = 'END'
+    if nth == 1:
+        b['prev_area'] = 'FIRST'
     else:
         try:
-            b['next_area'] = order_dict[cn][nth + 1]
+            b['prev_area'] = order_dict[cn][nth - 1]
         except KeyError:
             print b['seq']
-            b['next_area'] = 'ERR'
+            b['prev_area'] = 'ERR'
 
     # write booking rows to file
     writeline = ''

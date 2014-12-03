@@ -1,0 +1,702 @@
+[[1]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.97    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.03  1000    1
+phi[2,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,2]            1.00    0.00 0.00    0.98    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.46    0.00 0.07    0.32    0.41    0.45    0.50    0.60   463    1
+prior_alpha[2]      0.45    0.00 0.07    0.32    0.40    0.45    0.50    0.59   881    1
+prior_beta[1]       0.09    0.00 0.08   -0.07    0.04    0.09    0.15    0.25   508    1
+prior_beta[2]      -0.10    0.00 0.08   -0.26   -0.15   -0.09   -0.04    0.06   489    1
+theta_alpha[1,1]    0.56    0.00 0.09    0.38    0.50    0.56    0.62    0.74   735    1
+theta_alpha[1,2]    0.04    0.00 0.09   -0.14   -0.02    0.04    0.10    0.23   858    1
+theta_alpha[2,1]    0.40    0.00 0.10    0.21    0.33    0.40    0.47    0.59   721    1
+theta_alpha[2,2]    0.82    0.00 0.10    0.61    0.75    0.82    0.88    1.01   787    1
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.13   498    1
+theta_beta[2]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.15   496    1
+lp__             -106.18    0.13 2.53 -111.91 -107.62 -105.96 -104.34 -102.19   363    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:34:50 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[2]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.97    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.03  1000    1
+phi[2,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.59   766    1
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.40    0.45    0.50    0.58  1000    1
+prior_beta[1]       0.09    0.00 0.08   -0.08    0.04    0.09    0.15    0.26   598    1
+prior_beta[2]      -0.09    0.00 0.08   -0.24   -0.14   -0.08   -0.03    0.06   602    1
+theta_alpha[1,1]    0.56    0.00 0.09    0.39    0.50    0.56    0.62    0.74   636    1
+theta_alpha[1,2]    0.04    0.00 0.10   -0.14   -0.02    0.04    0.11    0.23   910    1
+theta_alpha[2,1]    0.38    0.00 0.10    0.20    0.31    0.37    0.45    0.56   647    1
+theta_alpha[2,2]    0.81    0.00 0.10    0.61    0.74    0.81    0.88    1.00   979    1
+theta_beta[1]      -0.01    0.00 0.07   -0.14   -0.05   -0.01    0.03    0.12   500    1
+theta_beta[2]       0.01    0.00 0.07   -0.12   -0.03    0.01    0.05    0.14   502    1
+lp__             -106.11    0.13 2.52 -112.00 -107.42 -105.75 -104.39 -102.18   384    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:37:25 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[3]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[1,2]            1.00    0.00 0.00    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.44    0.50    0.57   755    1
+prior_alpha[2]      0.46    0.00 0.07    0.33    0.41    0.46    0.50    0.58   786    1
+prior_beta[1]      -0.09    0.00 0.08   -0.25   -0.15   -0.09   -0.04    0.06   622    1
+prior_beta[2]       0.09    0.00 0.08   -0.06    0.04    0.10    0.15    0.25   740    1
+theta_alpha[1,1]    0.52    0.00 0.10    0.33    0.45    0.52    0.58    0.71   980    1
+theta_alpha[1,2]    0.09    0.00 0.10   -0.10    0.02    0.08    0.15    0.29   888    1
+theta_alpha[2,1]    0.35    0.00 0.09    0.16    0.28    0.35    0.41    0.53   889    1
+theta_alpha[2,2]    0.86    0.00 0.09    0.68    0.80    0.86    0.91    1.05   982    1
+theta_beta[1]       0.01    0.00 0.07   -0.13   -0.03    0.02    0.06    0.15   483    1
+theta_beta[2]      -0.01    0.00 0.07   -0.15   -0.05    0.00    0.04    0.13   486    1
+lp__             -106.35    0.15 2.61 -112.34 -107.90 -106.05 -104.37 -102.29   286    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:40:26 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[4]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[2,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[2,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.45    0.49    0.58  1000 1.00
+prior_alpha[2]      0.45    0.00 0.07    0.32    0.40    0.45    0.50    0.58   692 1.00
+prior_beta[1]       0.09    0.00 0.08   -0.07    0.04    0.09    0.14    0.26   656 1.00
+prior_beta[2]      -0.10    0.00 0.08   -0.26   -0.14   -0.09   -0.05    0.05   661 1.00
+theta_alpha[1,1]    0.57    0.00 0.09    0.39    0.50    0.57    0.63    0.75   779 1.00
+theta_alpha[1,2]    0.04    0.00 0.10   -0.13   -0.02    0.05    0.11    0.23   895 1.00
+theta_alpha[2,1]    0.39    0.00 0.10    0.20    0.32    0.39    0.46    0.58  1000 1.00
+theta_alpha[2,2]    0.81    0.00 0.10    0.62    0.75    0.82    0.87    0.99   839 1.00
+theta_beta[1]      -0.01    0.00 0.06   -0.13   -0.05   -0.01    0.04    0.11   503 1.00
+theta_beta[2]       0.01    0.00 0.06   -0.11   -0.03    0.01    0.06    0.13   504 1.00
+lp__             -106.23    0.13 2.44 -111.64 -107.79 -105.98 -104.38 -102.34   346 1.01
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:43:11 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[5]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[2,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[2,2]            1.00    0.00 0.01    0.99    1.00    1.00    1.00    1.00  1000 1.00
+prior_alpha[1]      0.46    0.00 0.07    0.32    0.41    0.45    0.51    0.60   834 1.01
+prior_alpha[2]      0.45    0.00 0.07    0.30    0.40    0.45    0.49    0.58  1000 1.00
+prior_beta[1]       0.09    0.00 0.08   -0.07    0.04    0.08    0.14    0.25   737 1.00
+prior_beta[2]      -0.10    0.00 0.08   -0.26   -0.15   -0.09   -0.04    0.06   711 1.00
+theta_alpha[1,1]    0.56    0.00 0.10    0.38    0.49    0.56    0.63    0.74  1000 1.00
+theta_alpha[1,2]    0.05    0.00 0.11   -0.15   -0.03    0.05    0.12    0.25  1000 1.00
+theta_alpha[2,1]    0.39    0.00 0.09    0.21    0.33    0.39    0.45    0.59   975 1.00
+theta_alpha[2,2]    0.81    0.00 0.09    0.61    0.75    0.81    0.88    0.99  1000 1.00
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.12   572 1.00
+theta_beta[2]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.14   573 1.00
+lp__             -106.50    0.17 2.78 -112.46 -108.00 -106.07 -104.53 -102.46   254 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:46:05 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[6]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[2,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[2,2]            1.00    0.00 0.01    0.99    1.00    1.00    1.00    1.00  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.58  1000 1.00
+prior_alpha[2]      0.44    0.00 0.07    0.30    0.39    0.44    0.49    0.59  1000 1.00
+prior_beta[1]       0.09    0.00 0.08   -0.07    0.03    0.09    0.14    0.24   870 1.00
+prior_beta[2]      -0.09    0.00 0.08   -0.26   -0.15   -0.09   -0.04    0.07   586 1.00
+theta_alpha[1,1]    0.56    0.00 0.10    0.36    0.49    0.56    0.62    0.75  1000 1.00
+theta_alpha[1,2]    0.04    0.00 0.09   -0.14   -0.02    0.05    0.10    0.22   780 1.00
+theta_alpha[2,1]    0.39    0.00 0.10    0.19    0.32    0.39    0.45    0.58   827 1.00
+theta_alpha[2,2]    0.81    0.00 0.10    0.63    0.75    0.82    0.88    1.00   949 1.00
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.13   474 1.01
+theta_beta[2]       0.01    0.00 0.07   -0.12   -0.04    0.01    0.06    0.15   473 1.01
+lp__             -106.34    0.14 2.64 -112.49 -107.98 -105.90 -104.50 -102.18   362 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:48:57 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[7]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.45    0.49    0.57  1000 1.00
+prior_alpha[2]      0.45    0.00 0.08    0.30    0.40    0.45    0.50    0.61  1000 1.00
+prior_beta[1]      -0.10    0.00 0.08   -0.27   -0.15   -0.09   -0.04    0.06   545 1.01
+prior_beta[2]       0.09    0.00 0.08   -0.08    0.04    0.09    0.14    0.24   704 1.00
+theta_alpha[1,1]    0.52    0.00 0.10    0.33    0.45    0.51    0.58    0.71  1000 1.00
+theta_alpha[1,2]    0.08    0.00 0.10   -0.10    0.01    0.08    0.15    0.27   925 1.00
+theta_alpha[2,1]    0.34    0.00 0.10    0.16    0.27    0.34    0.40    0.53   962 1.00
+theta_alpha[2,2]    0.85    0.00 0.10    0.66    0.79    0.85    0.92    1.04  1000 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.12   -0.04    0.01    0.05    0.15   586 1.00
+theta_beta[2]      -0.01    0.00 0.07   -0.14   -0.06   -0.01    0.03    0.12   579 1.00
+lp__             -106.43    0.13 2.58 -111.97 -108.01 -106.13 -104.55 -102.28   374 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:51:57 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[8]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,2]            1.00    0.00 0.00    0.98    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.58   782    1
+prior_alpha[2]      0.44    0.00 0.07    0.31    0.39    0.45    0.49    0.59   871    1
+prior_beta[1]       0.09    0.00 0.08   -0.06    0.04    0.09    0.15    0.28   574    1
+prior_beta[2]      -0.09    0.00 0.08   -0.25   -0.15   -0.09   -0.04    0.07   562    1
+theta_alpha[1,1]    0.56    0.00 0.09    0.39    0.49    0.56    0.62    0.75   858    1
+theta_alpha[1,2]    0.05    0.00 0.09   -0.13   -0.02    0.05    0.11    0.23   925    1
+theta_alpha[2,1]    0.39    0.00 0.10    0.19    0.32    0.39    0.45    0.57   771    1
+theta_alpha[2,2]    0.81    0.00 0.10    0.61    0.75    0.81    0.87    1.00   743    1
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.03    0.12   470    1
+theta_beta[2]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.14   469    1
+lp__             -106.28    0.13 2.54 -112.08 -107.76 -105.97 -104.45 -102.29   358    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:54:58 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[9]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.58   873    1
+prior_alpha[2]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.59   913    1
+prior_beta[1]      -0.09    0.00 0.08   -0.24   -0.15   -0.09   -0.04    0.07   713    1
+prior_beta[2]       0.10    0.00 0.08   -0.05    0.04    0.09    0.15    0.26   638    1
+theta_alpha[1,1]    0.52    0.00 0.10    0.32    0.45    0.51    0.58    0.71  1000    1
+theta_alpha[1,2]    0.09    0.00 0.10   -0.11    0.03    0.09    0.16    0.29  1000    1
+theta_alpha[2,1]    0.34    0.00 0.09    0.16    0.28    0.34    0.40    0.52  1000    1
+theta_alpha[2,2]    0.85    0.00 0.09    0.66    0.79    0.86    0.92    1.03  1000    1
+theta_beta[1]       0.01    0.00 0.07   -0.13   -0.04    0.02    0.06    0.15   608    1
+theta_beta[2]      -0.01    0.00 0.07   -0.15   -0.05   -0.01    0.04    0.13   608    1
+lp__             -106.27    0.14 2.59 -112.10 -107.87 -105.96 -104.35 -102.20   343    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 13:58:09 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[10]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000    1
+phi[1,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000    1
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.40    0.45    0.49    0.58   955    1
+prior_alpha[2]      0.46    0.00 0.07    0.32    0.41    0.46    0.51    0.60   751    1
+prior_beta[1]      -0.09    0.00 0.08   -0.25   -0.15   -0.09   -0.04    0.07   601    1
+prior_beta[2]       0.10    0.00 0.08   -0.07    0.04    0.09    0.15    0.26   589    1
+theta_alpha[1,1]    0.51    0.00 0.09    0.31    0.45    0.51    0.57    0.70   695    1
+theta_alpha[1,2]    0.09    0.00 0.09   -0.10    0.03    0.09    0.15    0.28   745    1
+theta_alpha[2,1]    0.34    0.00 0.10    0.15    0.27    0.34    0.41    0.55   771    1
+theta_alpha[2,2]    0.86    0.00 0.10    0.67    0.79    0.85    0.92    1.06   749    1
+theta_beta[1]       0.00    0.00 0.07   -0.14   -0.04    0.00    0.05    0.14   476    1
+theta_beta[2]      -0.02    0.00 0.07   -0.15   -0.06   -0.02    0.03    0.12   476    1
+lp__             -106.50    0.12 2.50 -111.79 -108.23 -106.16 -104.60 -102.50   421    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:00:51 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[11]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[2,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[2,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000 1.00
+prior_alpha[1]      0.46    0.00 0.07    0.31    0.41    0.46    0.50    0.59  1000 1.00
+prior_alpha[2]      0.45    0.00 0.07    0.30    0.40    0.45    0.50    0.58   910 1.00
+prior_beta[1]       0.09    0.00 0.08   -0.08    0.04    0.09    0.14    0.24   621 1.01
+prior_beta[2]      -0.09    0.00 0.08   -0.26   -0.14   -0.09   -0.03    0.05   570 1.01
+theta_alpha[1,1]    0.55    0.00 0.09    0.38    0.49    0.56    0.61    0.72   916 1.00
+theta_alpha[1,2]    0.04    0.00 0.11   -0.17   -0.03    0.04    0.12    0.26   844 1.00
+theta_alpha[2,1]    0.39    0.00 0.10    0.18    0.32    0.39    0.45    0.57   944 1.00
+theta_alpha[2,2]    0.81    0.00 0.10    0.62    0.75    0.81    0.88    0.99  1000 1.00
+theta_beta[1]      -0.01    0.00 0.07   -0.14   -0.06   -0.01    0.03    0.12   627 1.00
+theta_beta[2]       0.01    0.00 0.07   -0.12   -0.04    0.01    0.05    0.14   627 1.00
+lp__             -106.28    0.13 2.45 -112.16 -107.64 -106.01 -104.54 -102.42   379 1.01
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:03:52 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[12]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[1,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.45    0.50    0.58   955 1.00
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.41    0.45    0.50    0.60   896 1.00
+prior_beta[1]      -0.09    0.00 0.08   -0.25   -0.15   -0.09   -0.04    0.05   741 1.00
+prior_beta[2]       0.09    0.00 0.08   -0.05    0.04    0.09    0.15    0.26   779 1.00
+theta_alpha[1,1]    0.52    0.00 0.09    0.34    0.45    0.51    0.58    0.69   992 1.00
+theta_alpha[1,2]    0.09    0.00 0.09   -0.09    0.02    0.08    0.15    0.26   861 1.00
+theta_alpha[2,1]    0.35    0.00 0.09    0.17    0.29    0.35    0.40    0.52   654 1.00
+theta_alpha[2,2]    0.85    0.00 0.09    0.67    0.79    0.85    0.91    1.04  1000 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.12   -0.04    0.01    0.05    0.15   382 1.01
+theta_beta[2]      -0.01    0.00 0.07   -0.14   -0.06   -0.01    0.04    0.13   376 1.01
+lp__             -106.17    0.15 2.45 -112.07 -107.63 -105.79 -104.37 -102.40   278 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:08:34 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[13]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.30    0.40    0.45    0.49    0.59  1000 1.00
+prior_alpha[2]      0.46    0.00 0.07    0.32    0.41    0.46    0.50    0.59   998 1.00
+prior_beta[1]      -0.10    0.00 0.08   -0.26   -0.15   -0.09   -0.04    0.05   896 1.00
+prior_beta[2]       0.09    0.00 0.08   -0.06    0.04    0.09    0.14    0.24   726 1.00
+theta_alpha[1,1]    0.52    0.00 0.10    0.33    0.45    0.52    0.58    0.70   795 1.00
+theta_alpha[1,2]    0.09    0.00 0.09   -0.10    0.02    0.09    0.15    0.26   747 1.00
+theta_alpha[2,1]    0.34    0.00 0.10    0.14    0.27    0.34    0.41    0.54   687 1.00
+theta_alpha[2,2]    0.86    0.00 0.09    0.68    0.80    0.85    0.92    1.05   557 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.15   572 1.00
+theta_beta[2]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.14   578 1.00
+lp__             -106.46    0.19 2.66 -113.03 -107.97 -106.09 -104.53 -102.50   204 1.01
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:11:24 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[14]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.45    0.49    0.59   950 1.00
+prior_alpha[2]      0.45    0.00 0.07    0.33    0.41    0.45    0.50    0.58   725 1.00
+prior_beta[1]      -0.09    0.00 0.08   -0.24   -0.14   -0.09   -0.03    0.06   545 1.00
+prior_beta[2]       0.10    0.00 0.08   -0.06    0.04    0.09    0.15    0.26   481 1.00
+theta_alpha[1,1]    0.51    0.00 0.10    0.31    0.44    0.52    0.58    0.71   813 1.01
+theta_alpha[1,2]    0.09    0.00 0.09   -0.09    0.02    0.09    0.16    0.27   898 1.00
+theta_alpha[2,1]    0.34    0.00 0.09    0.17    0.28    0.34    0.41    0.53   646 1.00
+theta_alpha[2,2]    0.86    0.00 0.09    0.68    0.79    0.86    0.93    1.04   902 1.00
+theta_beta[1]       0.00    0.00 0.07   -0.13   -0.04    0.01    0.05    0.15   353 1.00
+theta_beta[2]      -0.02    0.00 0.07   -0.16   -0.06   -0.02    0.03    0.13   353 1.00
+lp__             -106.32    0.14 2.59 -112.01 -107.91 -106.03 -104.36 -102.19   333 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:14:03 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[15]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.61   775    1
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.40    0.45    0.50    0.59   826    1
+prior_beta[1]       0.10    0.00 0.08   -0.05    0.04    0.10    0.15    0.26   585    1
+prior_beta[2]      -0.09    0.00 0.08   -0.25   -0.14   -0.09   -0.03    0.06   573    1
+theta_alpha[1,1]    0.56    0.00 0.10    0.36    0.50    0.56    0.62    0.75   837    1
+theta_alpha[1,2]    0.04    0.00 0.09   -0.13   -0.02    0.03    0.10    0.23   906    1
+theta_alpha[2,1]    0.39    0.00 0.10    0.20    0.32    0.39    0.45    0.59  1000    1
+theta_alpha[2,2]    0.81    0.00 0.10    0.62    0.75    0.81    0.88    1.00   883    1
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.05    0.00    0.04    0.12   498    1
+theta_beta[2]       0.01    0.00 0.07   -0.12   -0.03    0.01    0.06    0.14   498    1
+lp__             -106.41    0.14 2.56 -112.38 -107.81 -106.10 -104.64 -102.36   329    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:17:03 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[16]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[1,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.44    0.49    0.58  1000 1.00
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.40    0.46    0.50    0.60  1000 1.00
+prior_beta[1]      -0.09    0.00 0.08   -0.25   -0.14   -0.09   -0.04    0.05   743 1.00
+prior_beta[2]       0.09    0.00 0.08   -0.06    0.04    0.10    0.14    0.26  1000 1.00
+theta_alpha[1,1]    0.51    0.00 0.10    0.32    0.44    0.51    0.58    0.71  1000 1.00
+theta_alpha[1,2]    0.09    0.00 0.09   -0.09    0.03    0.09    0.15    0.25  1000 1.00
+theta_alpha[2,1]    0.34    0.00 0.10    0.16    0.28    0.34    0.41    0.53   848 1.00
+theta_alpha[2,2]    0.86    0.00 0.10    0.67    0.79    0.85    0.92    1.05  1000 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.14   -0.04    0.01    0.06    0.14   616 1.01
+theta_beta[2]      -0.01    0.00 0.07   -0.16   -0.06   -0.01    0.04    0.12   615 1.01
+lp__             -106.27    0.16 2.57 -112.13 -107.77 -105.93 -104.37 -102.16   246 1.01
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:20:12 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[17]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+prior_alpha[1]      0.44    0.00 0.07    0.30    0.40    0.44    0.49    0.59   665    1
+prior_alpha[2]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.59  1000    1
+prior_beta[1]      -0.10    0.00 0.08   -0.26   -0.15   -0.10   -0.05    0.05   689    1
+prior_beta[2]       0.09    0.00 0.08   -0.07    0.03    0.08    0.14    0.27   754    1
+theta_alpha[1,1]    0.51    0.00 0.10    0.31    0.44    0.51    0.57    0.70   887    1
+theta_alpha[1,2]    0.09    0.00 0.09   -0.10    0.03    0.09    0.15    0.27   862    1
+theta_alpha[2,1]    0.35    0.00 0.09    0.16    0.28    0.35    0.41    0.52  1000    1
+theta_alpha[2,2]    0.86    0.00 0.09    0.67    0.80    0.86    0.92    1.04  1000    1
+theta_beta[1]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.15   513    1
+theta_beta[2]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.13   521    1
+lp__             -106.09    0.12 2.32 -111.59 -107.50 -105.82 -104.41 -102.29   407    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:23:15 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[18]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.44    0.00 0.07    0.31    0.40    0.44    0.49    0.58  1000 1.00
+prior_alpha[2]      0.46    0.00 0.07    0.32    0.41    0.46    0.50    0.59  1000 1.00
+prior_beta[1]      -0.09    0.00 0.08   -0.24   -0.14   -0.09   -0.04    0.07   638 1.00
+prior_beta[2]       0.09    0.00 0.08   -0.06    0.04    0.09    0.15    0.26   547 1.00
+theta_alpha[1,1]    0.51    0.00 0.10    0.32    0.44    0.51    0.57    0.69  1000 1.00
+theta_alpha[1,2]    0.09    0.00 0.09   -0.09    0.03    0.08    0.14    0.27  1000 1.00
+theta_alpha[2,1]    0.34    0.00 0.10    0.15    0.28    0.35    0.40    0.54  1000 1.00
+theta_alpha[2,2]    0.86    0.00 0.09    0.67    0.80    0.86    0.92    1.04   877 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.12   -0.03    0.01    0.06    0.14   677 1.01
+theta_beta[2]      -0.01    0.00 0.07   -0.14   -0.05   -0.01    0.03    0.12   678 1.01
+lp__             -106.09    0.12 2.51 -111.66 -107.56 -105.82 -104.23 -102.17   408 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:26:21 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[19]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.97    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.03  1000    1
+phi[2,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,2]            1.00    0.00 0.00    0.98    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.33    0.41    0.45    0.50    0.58  1000    1
+prior_alpha[2]      0.45    0.00 0.07    0.30    0.40    0.45    0.50    0.59   899    1
+prior_beta[1]       0.09    0.00 0.08   -0.07    0.03    0.09    0.15    0.26   665    1
+prior_beta[2]      -0.09    0.00 0.08   -0.25   -0.15   -0.09   -0.04    0.06   656    1
+theta_alpha[1,1]    0.56    0.00 0.10    0.36    0.49    0.56    0.62    0.74   907    1
+theta_alpha[1,2]    0.04    0.00 0.09   -0.15   -0.02    0.04    0.11    0.22  1000    1
+theta_alpha[2,1]    0.39    0.00 0.09    0.21    0.33    0.39    0.45    0.57  1000    1
+theta_alpha[2,2]    0.82    0.00 0.09    0.62    0.75    0.82    0.88    0.99   983    1
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.13   637    1
+theta_beta[2]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.15   640    1
+lp__             -106.24    0.14 2.44 -111.39 -107.76 -105.98 -104.41 -102.26   315    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:29:27 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[20]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000    1
+phi[1,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000    1
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.30    0.40    0.45    0.50    0.60   833    1
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.41    0.45    0.50    0.58   678    1
+prior_beta[1]      -0.09    0.00 0.09   -0.27   -0.15   -0.09   -0.04    0.07   743    1
+prior_beta[2]       0.09    0.00 0.09   -0.08    0.04    0.09    0.15    0.26   901    1
+theta_alpha[1,1]    0.51    0.00 0.10    0.33    0.45    0.51    0.57    0.71   865    1
+theta_alpha[1,2]    0.08    0.00 0.09   -0.10    0.02    0.08    0.15    0.26  1000    1
+theta_alpha[2,1]    0.34    0.00 0.09    0.16    0.28    0.34    0.40    0.53   872    1
+theta_alpha[2,2]    0.86    0.00 0.09    0.67    0.80    0.86    0.92    1.03   928    1
+theta_beta[1]       0.01    0.00 0.07   -0.12   -0.04    0.01    0.05    0.14   651    1
+theta_beta[2]      -0.01    0.00 0.07   -0.14   -0.06   -0.01    0.03    0.12   648    1
+lp__             -106.23    0.15 2.54 -111.65 -107.71 -105.91 -104.45 -102.27   299    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:32:24 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[21]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[1,2]            1.00    0.00 0.00    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.44    0.00 0.07    0.30    0.40    0.44    0.49    0.58   645 1.00
+prior_alpha[2]      0.46    0.00 0.07    0.32    0.41    0.46    0.50    0.60   635 1.00
+prior_beta[1]      -0.09    0.00 0.08   -0.26   -0.15   -0.09   -0.03    0.07   508 1.00
+prior_beta[2]       0.10    0.00 0.08   -0.07    0.04    0.10    0.16    0.26   538 1.00
+theta_alpha[1,1]    0.51    0.00 0.10    0.30    0.45    0.51    0.58    0.71   833 1.00
+theta_alpha[1,2]    0.08    0.00 0.10   -0.12    0.01    0.08    0.15    0.28  1000 1.00
+theta_alpha[2,1]    0.35    0.00 0.10    0.17    0.28    0.34    0.41    0.55   739 1.00
+theta_alpha[2,2]    0.85    0.00 0.09    0.68    0.79    0.85    0.91    1.03   846 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.12   -0.04    0.01    0.06    0.15   460 1.01
+theta_beta[2]      -0.01    0.00 0.07   -0.14   -0.06   -0.01    0.04    0.13   461 1.01
+lp__             -106.54    0.13 2.61 -112.48 -108.07 -106.20 -104.63 -102.48   406 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:35:06 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[22]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+phi[2,1]            0.00    0.00 0.00    0.00    0.00    0.00    0.00    0.01  1000 1.00
+phi[2,2]            1.00    0.00 0.00    0.99    1.00    1.00    1.00    1.00  1000 1.00
+prior_alpha[1]      0.46    0.00 0.07    0.32    0.41    0.46    0.50    0.59   991 1.00
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.40    0.44    0.49    0.58   840 1.00
+prior_beta[1]       0.09    0.00 0.08   -0.06    0.04    0.09    0.15    0.25   831 1.01
+prior_beta[2]      -0.09    0.00 0.08   -0.25   -0.14   -0.09   -0.04    0.05   802 1.00
+theta_alpha[1,1]    0.56    0.00 0.10    0.37    0.50    0.56    0.63    0.77  1000 1.00
+theta_alpha[1,2]    0.04    0.00 0.09   -0.14   -0.02    0.04    0.10    0.23   972 1.00
+theta_alpha[2,1]    0.38    0.00 0.09    0.22    0.32    0.38    0.44    0.56  1000 1.00
+theta_alpha[2,2]    0.81    0.00 0.09    0.64    0.75    0.81    0.88    1.00   989 1.00
+theta_beta[1]       0.00    0.00 0.07   -0.14   -0.05    0.00    0.04    0.14   479 1.00
+theta_beta[2]       0.02    0.00 0.07   -0.12   -0.04    0.02    0.06    0.16   480 1.00
+lp__             -106.10    0.14 2.55 -111.70 -107.58 -105.74 -104.34 -102.18   311 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:38:02 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[23]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.01  1000    1
+phi[2,2]            1.00    0.00 0.01    0.99    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.31    0.40    0.45    0.50    0.59   703    1
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.40    0.44    0.49    0.59   814    1
+prior_beta[1]       0.09    0.00 0.08   -0.07    0.03    0.09    0.15    0.25   587    1
+prior_beta[2]      -0.10    0.00 0.08   -0.27   -0.15   -0.10   -0.04    0.05   625    1
+theta_alpha[1,1]    0.55    0.00 0.10    0.35    0.48    0.56    0.62    0.74   482    1
+theta_alpha[1,2]    0.05    0.00 0.10   -0.14   -0.02    0.05    0.11    0.23   710    1
+theta_alpha[2,1]    0.38    0.00 0.09    0.19    0.32    0.39    0.45    0.57   961    1
+theta_alpha[2,2]    0.81    0.00 0.10    0.62    0.75    0.81    0.88    1.01   887    1
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.14   435    1
+theta_beta[2]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.16   433    1
+lp__             -106.47    0.12 2.55 -112.07 -108.05 -106.23 -104.62 -102.45   450    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:41:04 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[24]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00     0.0 0.00    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[1,2]            1.00     0.0 0.00    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,1]            1.00     0.0 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[2,2]            0.00     0.0 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+prior_alpha[1]      0.45     0.0 0.07    0.32    0.40    0.45    0.49    0.57  1000    1
+prior_alpha[2]      0.45     0.0 0.07    0.32    0.41    0.45    0.50    0.59  1000    1
+prior_beta[1]      -0.09     0.0 0.08   -0.24   -0.14   -0.08   -0.03    0.06   739    1
+prior_beta[2]       0.09     0.0 0.08   -0.05    0.04    0.09    0.14    0.26   630    1
+theta_alpha[1,1]    0.52     0.0 0.10    0.33    0.45    0.51    0.58    0.70  1000    1
+theta_alpha[1,2]    0.09     0.0 0.10   -0.10    0.02    0.09    0.16    0.27  1000    1
+theta_alpha[2,1]    0.34     0.0 0.09    0.17    0.28    0.34    0.41    0.52  1000    1
+theta_alpha[2,2]    0.86     0.0 0.10    0.66    0.79    0.86    0.93    1.04  1000    1
+theta_beta[1]       0.01     0.0 0.07   -0.12   -0.03    0.01    0.06    0.15   736    1
+theta_beta[2]      -0.01     0.0 0.07   -0.14   -0.05   -0.01    0.04    0.12   735    1
+lp__             -106.09     0.1 2.36 -111.64 -107.70 -105.80 -104.34 -102.33   511    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:44:03 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[25]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.01
+phi[1,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.01
+phi[2,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000 1.00
+phi[2,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000 1.00
+prior_alpha[1]      0.45    0.00 0.07    0.30    0.40    0.45    0.50    0.59  1000 1.00
+prior_alpha[2]      0.46    0.00 0.07    0.32    0.41    0.45    0.51    0.60  1000 1.00
+prior_beta[1]      -0.09    0.00 0.08   -0.24   -0.14   -0.09   -0.04    0.06   759 1.00
+prior_beta[2]       0.09    0.00 0.08   -0.05    0.04    0.09    0.14    0.25   766 1.00
+theta_alpha[1,1]    0.51    0.00 0.10    0.32    0.45    0.51    0.58    0.69   596 1.00
+theta_alpha[1,2]    0.09    0.00 0.10   -0.10    0.02    0.09    0.15    0.28   946 1.00
+theta_alpha[2,1]    0.34    0.00 0.10    0.14    0.28    0.34    0.41    0.53   954 1.00
+theta_alpha[2,2]    0.85    0.00 0.09    0.68    0.79    0.85    0.91    1.04  1000 1.00
+theta_beta[1]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.05    0.14   670 1.00
+theta_beta[2]      -0.01    0.00 0.07   -0.15   -0.06   -0.02    0.03    0.12   671 1.00
+lp__             -106.29    0.17 2.50 -112.54 -107.68 -105.91 -104.61 -102.33   221 1.00
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:47:04 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+[[26]]
+Inference for Stan model: hmm-semisup-orig.
+1 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=1000.
+
+                    mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+phi[1,1]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+phi[1,2]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,1]            0.00    0.00 0.01    0.00    0.00    0.00    0.00    0.02  1000    1
+phi[2,2]            1.00    0.00 0.01    0.98    1.00    1.00    1.00    1.00  1000    1
+prior_alpha[1]      0.45    0.00 0.07    0.32    0.41    0.45    0.50    0.59   811    1
+prior_alpha[2]      0.45    0.00 0.07    0.31    0.40    0.45    0.49    0.59  1000    1
+prior_beta[1]       0.09    0.00 0.09   -0.07    0.03    0.09    0.15    0.26   715    1
+prior_beta[2]      -0.09    0.00 0.08   -0.25   -0.15   -0.09   -0.04    0.06   816    1
+theta_alpha[1,1]    0.55    0.00 0.10    0.36    0.49    0.55    0.62    0.74   891    1
+theta_alpha[1,2]    0.04    0.00 0.09   -0.15   -0.02    0.05    0.11    0.22   817    1
+theta_alpha[2,1]    0.38    0.00 0.10    0.20    0.32    0.38    0.45    0.58  1000    1
+theta_alpha[2,2]    0.81    0.00 0.09    0.64    0.75    0.81    0.87    1.01  1000    1
+theta_beta[1]      -0.01    0.00 0.07   -0.15   -0.06   -0.01    0.04    0.13   575    1
+theta_beta[2]       0.01    0.00 0.07   -0.13   -0.04    0.01    0.06    0.14   577    1
+lp__             -106.35    0.13 2.64 -112.78 -107.82 -106.10 -104.45 -102.26   400    1
+
+Samples were drawn using NUTS(diag_e) at Fri Nov 21 14:49:58 2014.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+

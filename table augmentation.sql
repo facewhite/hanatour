@@ -118,3 +118,14 @@ on bkg_camp_ver2.seq = bkg_nth.seq);
 
 ALTER TABLE `hana_tour_py`.`bkg_camp_ver3` 
 ADD PRIMARY KEY (`seq`, `cust_no`, `package_code`);
+
+
+create table bkg_camp_ver5 as
+(select bkg_camp_ver4.*, prev_area
+from bkg_camp_ver4 inner join prevarea
+on bkg_camp_ver4.seq = prevarea.seq);
+
+select count(*) from bkg_camp_ver5; # 6794904
+select * from booking where seq=2447356;
+select * from booking where package_code="CCP753020212MUA";
+select * from product where code="CCP753020212MUA";
