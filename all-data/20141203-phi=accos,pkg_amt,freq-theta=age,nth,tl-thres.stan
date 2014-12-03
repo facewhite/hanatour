@@ -9,27 +9,31 @@ data {
   real age[I,T_unsup]; // age covariates
   real accos[I,T_unsup]; // accos covariates
 
-  real tl[I,T_unsup]; // accos covariates
-  real nth[I,T_unsup]; // accos covariates
-  real pkg_amt[I,T_unsup]; // accos covariates
+  real tl[I,T_unsup]; // travel length covariates
+  real nth[I,T_unsup]; // nth travel covariates
+  real pkg_amt[I,T_unsup]; // package price covariates
 
-  // freq area matrix with indicator vector (e.g. 3 = (0,0,1,0,0,0,0,0,0,0,0,0))
-  // 9 means the first destination, 10 means the NA.
+  // freq area matrix with indicator vector (e.g. (0.1,0.3,0.5,0,0,0.1,0))
   vector[V] freq[I,T_unsup];
 }
 
 parameters {
-  vector[V] phi_alpha[K];
-  vector[V] phi_beta_accos;
-  vector[V] phi_beta_pkg_amt;
-  vector[V] phi_beta_age;
-  matrix[V,V] phi_beta_freq[K];
+  // Phi: state에서 output이 나오는 probability distribution
+  // Phi[k,v] = Prob(output=v|state=k)
+  vector[V] phi_alpha[K]; // 상수
+  vector[V] phi_beta_accos; // covariate for accompany number
+  vector[V] phi_beta_pkg_amt; //covariate for package_amt
+  matrix[V,V] phi_beta_freq[K]; // covariate for region frequency
 
-  real theta_alpha;
-  real theta_beta_age;
-  real theta_beta_tl;
-  real theta_beta_nth;
-  ordered[K] thres;
+  // Theta: state간 transition을 modelling한 probability distribution
+  // Theta[k,k2] = Prob(current state = k2|previous state = k1)
+  // utility가 threshold를 넘어가면 변화의 가능성이 올라감
+  // 아래 상수는 utility 계산에 들어가는 상수
+  real theta_alpha; //상수
+  real theta_beta_age; // covariate for age
+  real theta_beta_tl; // covariate for travel length
+  real theta_beta_nth; // covariate for nth
+  ordered[K] thres; // threshold constant k가 클수록 threshold가 높아짐
 }
 
 model {
@@ -59,29 +63,32 @@ model {
     vector[V] phi[K];
     vector[V] phireg[K];
 
+    // output probability calculation for time 1
     for (k in 1:K) {
       phireg[k] <- phi_alpha[k] + phi_beta_accos * accos[i,1]
                     + phi_beta_pkg_amt * pkg_amt[i,1]
                     + phi_beta_freq[k] * freq[i,1];
-      phi[k] <- softmax(phireg[k]);
+      phi[k] <- softmax(phireg[k]); // softmax(x,y) = (exp(x)/(exp(x)+exp(y)),exp(y)/(exp(x)+exp(y)))
     }
 
     for (k in 1:K)
-      gamma[1,k] <- log(phi[k,u[i,1]]);
+      gamma[1,k] <- log(phi[k,u[i,1]]); // log likelihood of observing result u[i,1] at time 1 in state k
 
     for (t in 2:T[i]) {
+      //utility is calculated through regression
+      util <- theta_alpha
+              + theta_beta_age * age[i,t] 
+              + theta_beta_nth * nth[i,t] 
+              + theta_beta_tl * tl[i,t];
+
       for (k in 1:K) {
-        util <- theta_alpha 
-                + theta_beta_age * age[i,t] 
-                + theta_beta_nth * nth[i,t] 
-                + theta_beta_tl * tl[i,t];
-        thetareg[k] <- exp(thres - util);
-
-        theta[k,1] <- thetareg[k,1]/(1+thetareg[k,1]);
+        thetareg[k] <- exp(thres - util); // threshold - utility 가 클수록 exp가 inf에 가까워지고 따라서 logit이 1에 가까워짐
+        theta[k,1] <- thetareg[k,1]/(1+thetareg[k,1]); // utility가 작으면 가장 커짐
         for (k2 in 2:(K-1))
-          theta[k,k2] <- thetareg[k,k2]/(1+thetareg[k,k2]) - thetareg[k,k2-1]/(1+thetareg[k,k2-1]);
-        theta[k,K] <- 1 - thetareg[k,K-1]/(1+thetareg[k,K-1]);
+          theta[k,k2] <- thetareg[k,k2]/(1+thetareg[k,k2]) - thetareg[k,k2-1]/(1+thetareg[k,k2-1]); // 각 threshold사이에서 균형을 잡음
+        theta[k,K] <- 1 - thetareg[k,K-1]/(1+thetareg[k,K-1]); // utilty가 작으면 가장 작아짐
 
+        // output probability distribution 계산은 앞과 같음
         phireg[k] <- phi_alpha[k] + phi_beta_accos * accos[i,t]
                     + phi_beta_pkg_amt * pkg_amt[i,t]
                     + phi_beta_freq[k] * freq[i,t];
@@ -89,11 +96,13 @@ model {
       }
       for (k in 1:K) {
         for (j in 1:K)
-          acc[j] <- gamma[t-1,j] + log(theta[j,k]) + log(phi[k,u[i,t]]);
-        gamma[t,k] <- log_sum_exp(acc);
+          acc[j] <- gamma[t-1,j] + log(theta[j,k]) + log(phi[k,u[i,t]]); // 이전 state 가 j일때 현재 state 가 k 일 log likelihood는
+                                                                         // 이전 state가 j일 log likelihood + 이전 state가 j일때 현재 state가 k일 log likelihood + 현재 state가 k일때 output이 u[i,t]일 log likelihood
+        gamma[t,k] <- log_sum_exp(acc); // 현재 state가 k일 log likelihood는 이전 log likelihood의 log_sum_exp
+                                        // log_sum_exp(x,y) = log(exp(x)+exp(y))
       }
     }
-    increment_log_prob(log_sum_exp(gamma[T[i]]));
+    increment_log_prob(log_sum_exp(gamma[T[i]])); // estimation의 log likelihood를 최종 log likelihood의 log_sum_exp로 더한다
   }
 }
 
